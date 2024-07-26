@@ -1,0 +1,72 @@
+[
+  {
+    "question": "What is the main goal of a Denial-of-Service (DoS) attack?",
+    "options": [
+      { "letter": "A", "answer": "To gain unauthorized access to a network" },
+      { "letter": "B", "answer": "To steal sensitive information" },
+      { "letter": "C", "answer": "To disrupt the normal functioning of a system" },
+      { "letter": "D", "answer": "To install malware on a system" }
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Which of the following is a common method used to protect data during transmission?",
+    "options": [
+      { "letter": "A", "answer": "Encryption" },
+      { "letter": "B", "answer": "Decryption" },
+      { "letter": "C", "answer": "Formatting" },
+      { "letter": "D", "answer": "Fragmentation" }
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "What does the term 'phishing' refer to?",
+    "options": [
+      { "letter": "A", "answer": "Sending spam emails to random recipients" },
+      { "letter": "B", "answer": "Creating fake websites to steal login credentials" },
+      { "letter": "C", "answer": "Exploiting software vulnerabilities" },
+      { "letter": "D", "answer": "Intercepting network traffic" }
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Which protocol is used to securely browse the web?",
+    "options": [
+      { "letter": "A", "answer": "HTTP" },
+      { "letter": "B", "answer": "FTP" },
+      { "letter": "C", "answer": "SSH" },
+      { "letter": "D", "answer": "HTTPS" }
+    ],
+    "answer": "D"
+  },
+  {
+    "question": "What is the purpose of a firewall in a network?",
+    "options": [
+      { "letter": "A", "answer": "To scan for viruses" },
+      { "letter": "B", "answer": "To block unauthorized access" },
+      { "letter": "C", "answer": "To monitor network performance" },
+      { "letter": "D", "answer": "To manage IP addresses" }
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "What is multi-factor authentication (MFA)?",
+    "options": [
+      { "letter": "A", "answer": "Using multiple passwords for a single account" },
+      { "letter": "B", "answer": "A method that requires two or more verification factors" },
+      { "letter": "C", "answer": "A technique to encrypt data using multiple algorithms" },
+      { "letter": "D", "answer": "A process to back up data in multiple locations" }
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Which of the following is considered a strong password?",
+    "options": [
+      { "letter": "A", "answer": "password123" },
+      { "letter": "B", "answer": "12345678" },
+      { "letter": "C", "answer": "P@ssw0rd!" },
+      { "letter": "D", "answer": "abc123" }
+    ],
+    "answer": "C"
+  }
+]
