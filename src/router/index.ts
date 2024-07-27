@@ -7,16 +7,16 @@ import OnGoingTest from '../views/quiz/OnGoingQuiz.vue'
 import supabaseClient from '@/utils/superbase'
 const isAuthenticated = async (to: RouteLocationNormalizedGeneric) => {
   try {
-    if (to.path === '/login' || to.path === '/register') return { path: to.fullPath }
+    console.log(to)
+    if (to.path === '/login' || to.path === '/register') return true
     const {
       data: { user },
       error
     } = await supabaseClient.auth.getUser()
-    if (error) return { path: '/login' }
-    if (!user) return { path: '/login' }
-    console.log(to)
+    if (error || !user) return { path: '/login' }
   } catch (error) {
     console.log(error)
+    return { path: '/login' }
   }
 }
 const checkQuizSessionStatus = async (to: RouteLocationNormalizedGeneric) => {
@@ -24,18 +24,20 @@ const checkQuizSessionStatus = async (to: RouteLocationNormalizedGeneric) => {
     const {
       params: { quizId }
     } = to
-    const quizSession = await supabaseClient
+    const { data: quizSession } = await supabaseClient
       .from('quiz_session')
       .select('is_finished')
       .eq('id', quizId)
     console.log(quizSession)
-    if (!quizSession.data) return false
+    if (!quizSession || quizSession.length == 0) return false
 
-    if (quizSession.data[0].is_finished)
+    if (quizSession[0].is_finished) {
       return {
         path: `/quiz/result/${quizId}`
       }
+    }
   } catch (error) {
+    console.log(error)
     return false
   }
 }
@@ -59,21 +61,18 @@ const router = createRouter({
       name: 'Register',
       component: RegisterView
     },
+
     {
-      path: '/quiz',
-      children: [
-        {
-          path: '/:quizId/ongoing/:question',
-          component: OnGoingTest,
-          name: 'Quiz',
-          beforeEnter: [isAuthenticated, checkQuizSessionStatus]
-        }
-      ]
+      path: '/quiz/:quizId/ongoing/:question',
+      component: OnGoingTest,
+      name: 'Quiz',
+      beforeEnter: [isAuthenticated, checkQuizSessionStatus]
     },
+
     {
       path: '/result/:quizId',
       component: SingleQuiz,
-      name: 'Quiz',
+      name: 'Result',
       beforeEnter: [isAuthenticated]
     }
   ]

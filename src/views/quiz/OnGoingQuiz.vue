@@ -96,7 +96,7 @@ const submitQuiz = async () => {
       quiz_session: quizSessionId,
       score
     })
-    replace('/')
+    replace(`/result/${quizSessionId}`)
   } catch (error) {
     console.log(error)
   } finally {
@@ -204,12 +204,16 @@ onMounted(() => {
               quizNum
             }}</span>
             <div
-              class="bg-gray-600 h-5 w-full self-stretch"
-              v-if="quizes[quizNum - 1].user_answer.length > 0"
+              :class="`${quizes[quizNum - 1].user_answer.length > 0 && 'bg-gray-600'} h-5 w-full self-stretch`"
             ></div>
           </button>
         </div>
-        <button v-if="canSubmit" class="underline" :disabled="loading" @click="submitQuiz">
+        <button
+          v-if="quizes.every((quiz) => quiz.user_answer.length > 0)"
+          class="underline"
+          :disabled="loading"
+          @click="submitQuiz"
+        >
           Submit Quiz
         </button>
       </div>
