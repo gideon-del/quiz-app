@@ -136,7 +136,7 @@ onMounted(() => {
   <div class="min-h-screen flex flex-col items-center justify-center">
     <div
       v-if="quizes.length > 0 || !loading"
-      class="flex items-start gap-10 w-full flex-col md:flex-row"
+      class="flex items-start gap-10 w-full flex-col-reverse md:flex-row"
     >
       <div
         class="bg-white px-4 py-4 rounded-md max-w-lg relative mx-auto w-full flex flex-col gap-4"

@@ -28,7 +28,7 @@ const onSumbit = async (values: any) => {
 
 <template>
   <main class="min-h-screen flex flex-col items-center justify-center">
-    <section class="w-full max-w-sm">
+    <section class="w-full max-w-sm px-5">
       <h1 class="font-semibold text-lg text-center">Login</h1>
       <Form @submit="onSumbit" class="flex flex-col gap-3">
         <fieldset class="flex flex-col space-y-2">
