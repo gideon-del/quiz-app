@@ -133,10 +133,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="from-purple-600/30 to-purple-300/20 bg-gradient-to-br min-h-screen flex flex-col items-center justify-center"
-  >
-    <div v-if="quizes.length > 0 || !loading" class="flex items-start gap-10 w-full">
+  <div class="min-h-screen flex flex-col items-center justify-center">
+    <div
+      v-if="quizes.length > 0 || !loading"
+      class="flex items-start gap-10 w-full flex-col md:flex-row"
+    >
       <div
         class="bg-white px-4 py-4 rounded-md max-w-lg relative mx-auto w-full flex flex-col gap-4"
       >
@@ -169,7 +170,7 @@ onMounted(() => {
             >
           </div>
         </div>
-        <div class="flex flex-row gap-3 items-center justify-center">
+        <div class="flex flex-row gap-3 items-center justify-between">
           <button
             class="bg-black text-white rounded-md py-2 px-3 min-w-20"
             @click="previousQuiz"
@@ -186,8 +187,8 @@ onMounted(() => {
           </button>
         </div>
       </div>
-      <div class="basis-1/3">
-        <div class="flex flex-wrap gap-3 my-6">
+      <div class="md:basis-1/3 w-full">
+        <div class="flex flex-wrap gap-3 my-6 md:justify-start justify-center w-full">
           <button
             v-for="quizNum in quizes.length"
             :key="quizNum"
