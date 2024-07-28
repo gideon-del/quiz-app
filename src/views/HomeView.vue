@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import supabaseClient from '@/utils/superbase'
 import { onMounted, ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
-import SingleQuiz from './quiz/SingleQuiz.vue'
+import { useRouter } from 'vue-router'
+
 import PageWrapper from '@/components/PageWrapper.vue'
 
 const quizSession = ref<any>(null)
 const loading = ref(true)
 const isFinished = ref(false)
-const { push, ...router } = useRouter()
+const { push } = useRouter()
 onMounted(() => {
   const getSession = async () => {
     try {
@@ -51,12 +51,10 @@ const startQuiz = async () => {
     push(`/quiz/${quizData.data?.[0].id}/ongoing/1`)
   } catch (error) {
     console.log(error)
-  } finally {
     loading.value = false
   }
 }
 const continueQuiz = () => {
-  console.log(quizSession)
   if (!quizSession.value) return
   push(`/quiz/${quizSession.value.id}/ongoing/${quizSession.value.last_attempted}`)
 }
@@ -71,7 +69,7 @@ const onClick = () => {
 
 <template>
   <PageWrapper>
-    <main class="flex-1 flex justify-center items-center">
+    <main class="flex-1 px-4 flex justify-center items-center">
       <div
         v-if="loading"
         class="border-2 border-black animate-spin border-r-transparent w-10 h-10 rounded-full"

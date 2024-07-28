@@ -9,7 +9,7 @@ const logout = async () => {
 </script>
 <template>
   <div class="flex flex-col gap-3 min-h-screen">
-    <header class="sticky top-0 left-0 right-0 border-b z-50 bg-white mb-10">
+    <header class="sticky px-4 top-0 left-0 right-0 border-b z-50 bg-white mb-10">
       <nav class="max-w-6xl py-4 mx-auto flex justify-between items-center">
         <RouterLink to="/" class="flex items-center gap-3">
           <h2 class="text-base font-bold">SecureQuiz</h2>

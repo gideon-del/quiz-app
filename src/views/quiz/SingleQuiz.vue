@@ -23,7 +23,6 @@ onMounted(() => {
         )
         .eq('quiz_session', quizId)
 
-      console.log(res.data)
       if (!res.data) return
       answers.value = res.data as unknown as Quiz[]
       answers.value.forEach((answer) => {
@@ -42,7 +41,7 @@ onMounted(() => {
 </script>
 <template>
   <PageWrapper>
-    <main class="flex-1 flex flex-col">
+    <main class="flex-1 flex flex-col px-4">
       <section v-if="!loading">
         <header class="flex flex-row justify-between items-center max-w-4xl mx-auto mb-20">
           <RouterLink to="/">

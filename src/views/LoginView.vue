@@ -7,9 +7,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const loading = ref(false)
-const navigateToRegister = () => {
-  router.replace(`/register`)
-}
+
 const onSumbit = async (values: any) => {
   try {
     loading.value = true
@@ -56,10 +54,17 @@ const onSumbit = async (values: any) => {
           <ErrorMessage name="password" class="text-red-400 font-normal text-sm" />
         </fieldset>
 
-        <button class="bg-black py-2 rounded-lg text-white mb-4" :disabled="loading">
-          Sign in
+        <button
+          class="bg-black flex items-center justify-center py-2 rounded-lg text-white mb-4"
+          :disabled="loading"
+        >
+          {{ !loading && ' Sign in' }}
+          <div
+            class="w-5 h-5 rounded-full border border-white border-r-transparent"
+            v-if="loading"
+          ></div>
         </button>
-        <button class="py-2 rounded-lg" @click="navigateToRegister">Create an account</button>
+        <RouterLink to="/register" class="text-blue-600">Create account</RouterLink>
       </Form>
     </section>
   </main>

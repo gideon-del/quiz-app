@@ -52,7 +52,12 @@ const onSumbit = async (values: any) => {
           <ErrorMessage name="password" class="text-red-400 font-normal text-sm" />
         </fieldset>
 
-        <button class="bg-black py-2 rounded-lg text-white" :disabled="loading">Sign in</button>
+        {{ !loading && 'Create account' }}
+        <div
+          class="w-5 h-5 rounded-full border border-white border-r-transparent"
+          v-if="loading"
+        ></div>
+        <RouterLink to="/login" class="text-blue-600">Already have an account? Login</RouterLink>
       </Form>
     </section>
   </main>
