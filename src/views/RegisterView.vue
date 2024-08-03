@@ -5,15 +5,21 @@ import { Field, Form, ErrorMessage } from 'vee-validate'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const loading = ref(false)
+const errorMessage = ref('')
 const router = useRouter()
 const onSumbit = async (values: any) => {
   try {
     loading.value = true
-    await supabaseClient.auth.signUp({
+    const { data, error } = await supabaseClient.auth.signUp({
       email: values.email,
       password: values.password
     })
-    router.replace('/login')
+    if (error) {
+      errorMessage.value = error.message
+    } else {
+      errorMessage.value = ''
+      router.replace('/login')
+    }
   } catch (error) {
     console.log(error)
   } finally {
@@ -51,12 +57,17 @@ const onSumbit = async (values: any) => {
           />
           <ErrorMessage name="password" class="text-red-400 font-normal text-sm" />
         </fieldset>
-
-        {{ !loading && 'Create account' }}
-        <div
-          class="w-5 h-5 rounded-full border border-white border-r-transparent"
-          v-if="loading"
-        ></div>
+        <p v-if="errorMessage" class="text-red-400">{{ errorMessage }}</p>
+        <button
+          class="bg-black flex items-center justify-center py-2 rounded-lg text-white mb-4"
+          :disabled="loading"
+        >
+          <span v-if="!loading">Create account</span>
+          <div
+            class="w-5 h-5 rounded-full animate-spin border border-white border-r-transparent"
+            v-else
+          ></div>
+        </button>
         <RouterLink to="/login" class="text-blue-600">Already have an account? Login</RouterLink>
       </Form>
     </section>

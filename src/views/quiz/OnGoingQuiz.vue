@@ -12,8 +12,9 @@ const answer = ref('')
 const { quizes } = storeToRefs(quizStore)
 const loading = ref(true)
 const currentQuiz = ref(quizes.value[+route.params.question - 1])
-const canSubmit = ref(quizes.value.every((quiz) => quiz.user_answer.length > 0))
+
 const { replace } = useRouter()
+const submitting = ref(false)
 const gettingQuizzes = async () => {
   try {
     loading.value = true
@@ -71,7 +72,6 @@ const updateSupabase = async (quizNum: number) => {
     currentQuiz.value = prevQuiz
     quizNumber.value = quizNum
     answer.value = prevQuiz.user_answer
-    canSubmit.value = quizes.value.every((quiz) => quiz.user_answer.length > 0)
   } catch (error) {
     console.log(error)
   } finally {
@@ -80,6 +80,8 @@ const updateSupabase = async (quizNum: number) => {
 }
 const submitQuiz = async () => {
   try {
+    submitting.value = true
+    loading.value = true
     let score = 0
     quizes.value.forEach((quiz) => {
       if (quiz.quiz.correct_answer === quiz.user_answer) {
@@ -100,6 +102,7 @@ const submitQuiz = async () => {
   } catch (error) {
     console.log(error)
   } finally {
+    submitting.value = false
     loading.value = false
   }
 }
@@ -133,7 +136,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center">
+  <div class="min-h-screen relative flex flex-col items-center justify-center">
     <div
       v-if="quizes.length > 0 || !loading"
       class="flex items-start gap-10 w-full flex-col-reverse md:flex-row"
@@ -215,9 +218,17 @@ onMounted(() => {
           :disabled="loading"
           @click="submitQuiz"
         >
-          Submit Quiz
+          <span v-if="!submitting">Submit Quiz</span>
+          <div
+            class="w-5 h-5 rounded-full animate-spin border border-white border-r-transparent"
+            v-else
+          ></div>
         </button>
       </div>
     </div>
+    <div
+      class="w-20 h-20 rounded-full animate-spin border border-black border-r-transparent"
+      v-else
+    ></div>
   </div>
 </template>

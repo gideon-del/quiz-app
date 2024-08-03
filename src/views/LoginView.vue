@@ -7,15 +7,20 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const loading = ref(false)
-
+const errorMessage = ref('')
 const onSumbit = async (values: any) => {
   try {
     loading.value = true
-    await supabaseClient.auth.signInWithPassword({
+    errorMessage.value = ''
+    const { error } = await supabaseClient.auth.signInWithPassword({
       email: values.email,
       password: values.password
     })
-    router.replace('/')
+    if (error) {
+      errorMessage.value = error.message
+    } else {
+      router.replace('/')
+    }
   } catch (error) {
     console.log(error)
   } finally {
@@ -53,17 +58,18 @@ const onSumbit = async (values: any) => {
           />
           <ErrorMessage name="password" class="text-red-400 font-normal text-sm" />
         </fieldset>
-
+        <p v-if="errorMessage" class="text-red-400">{{ errorMessage }}</p>
         <button
           class="bg-black flex items-center justify-center py-2 rounded-lg text-white mb-4"
           :disabled="loading"
         >
-          {{ !loading && ' Sign in' }}
+          <span v-if="!loading">Sign in</span>
           <div
-            class="w-5 h-5 rounded-full border border-white border-r-transparent"
-            v-if="loading"
+            class="w-5 h-5 rounded-full border animate-spin border-white border-r-transparent"
+            v-else
           ></div>
         </button>
+
         <RouterLink to="/register" class="text-blue-600">Create account</RouterLink>
       </Form>
     </section>
