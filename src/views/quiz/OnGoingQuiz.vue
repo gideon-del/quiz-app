@@ -139,7 +139,7 @@ onMounted(() => {
   <div class="min-h-screen relative flex flex-col items-center justify-center">
     <div
       v-if="quizes.length > 0 || !loading"
-      class="flex items-start gap-10 w-full flex-col-reverse md:flex-row"
+      class="flex items-start gap-10 w-full flex-col md:flex-row"
     >
       <div
         class="bg-white px-4 py-4 rounded-md max-w-lg relative mx-auto w-full flex flex-col gap-4"
@@ -177,21 +177,30 @@ onMounted(() => {
           <button
             class="bg-black text-white rounded-md py-2 px-3 min-w-20"
             @click="previousQuiz"
-            :disabled="loading"
+            :disabled="loading || submitting"
           >
             Prev
+          </button>
+
+          <button
+            class="bg-black text-white rounded-md py-2 px-3 min-w-20"
+            @click="submitQuiz"
+            :disabled="loading || submitting"
+            v-if="quizes.every((quiz) => quiz.user_answer.length > 0)"
+          >
+            Submit
           </button>
           <button
             class="bg-black text-white rounded-md py-2 px-3 min-w-20"
             @click="saveAnswer"
-            :disabled="loading"
+            :disabled="loading || submitting"
           >
             Next
           </button>
         </div>
       </div>
       <div class="md:basis-1/3 w-full">
-        <div class="flex flex-wrap gap-3 my-6 md:justify-start justify-center w-full">
+        <div class="flex flex-wrap gap-3 my-6 md:justify-start justify-center w-full px-4">
           <button
             v-for="quizNum in quizes.length"
             :key="quizNum"
