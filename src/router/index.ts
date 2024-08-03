@@ -5,18 +5,19 @@ import RegisterView from '../views/RegisterView.vue'
 import SingleQuiz from '../views/quiz/SingleQuiz.vue'
 import OnGoingTest from '../views/quiz/OnGoingQuiz.vue'
 import supabaseClient from '@/utils/superbase'
+import LandingPageView from '@/views/LandingPageView.vue'
+const unprotectedRoutes = ['/login', '/register', '/home']
 const isAuthenticated = async (to: RouteLocationNormalizedGeneric) => {
   try {
-    console.log(to)
-    if (to.path === '/login' || to.path === '/register') return true
+    if (unprotectedRoutes.includes(to.path)) return true
     const {
       data: { user },
       error
     } = await supabaseClient.auth.getUser()
-    if (error || !user) return { path: '/login' }
+    if (error || !user) return { path: '/home' }
   } catch (error) {
     console.log(error)
-    return { path: '/login' }
+    return { path: '/home' }
   }
 }
 const checkQuizSessionStatus = async (to: RouteLocationNormalizedGeneric) => {
@@ -28,7 +29,7 @@ const checkQuizSessionStatus = async (to: RouteLocationNormalizedGeneric) => {
       .from('quiz_session')
       .select('is_finished')
       .eq('id', quizId)
-    console.log(quizSession)
+
     if (!quizSession || quizSession.length == 0) return false
 
     if (quizSession[0].is_finished) {
@@ -41,6 +42,7 @@ const checkQuizSessionStatus = async (to: RouteLocationNormalizedGeneric) => {
     return false
   }
 }
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -61,7 +63,11 @@ const router = createRouter({
       name: 'Register',
       component: RegisterView
     },
-
+    {
+      path: '/home',
+      component: LandingPageView,
+      name: 'SecureQuiz'
+    },
     {
       path: '/quiz/:quizId/ongoing/:question',
       component: OnGoingTest,
