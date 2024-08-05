@@ -7,6 +7,7 @@ import OnGoingTest from '../views/quiz/OnGoingQuiz.vue'
 import supabaseClient from '@/utils/superbase'
 import LandingPageView from '@/views/LandingPageView.vue'
 const unprotectedRoutes = ['/login', '/register', '/home']
+
 const isAuthenticated = async (to: RouteLocationNormalizedGeneric) => {
   try {
     if (unprotectedRoutes.includes(to.path)) return true
@@ -14,10 +15,21 @@ const isAuthenticated = async (to: RouteLocationNormalizedGeneric) => {
       data: { user },
       error
     } = await supabaseClient.auth.getUser()
-    if (error || !user) return { path: '/home' }
+    if (error || !user) return { name: 'SecureQuiz' }
+  } catch (error) {
+    return { name: 'SecureQuiz' }
+  }
+}
+const isUnAuthenticated = async (to: RouteLocationNormalizedGeneric) => {
+  try {
+    const {
+      data: { user }
+    } = await supabaseClient.auth.getUser()
+
+    if (user) return { name: 'home' }
   } catch (error) {
     console.log(error)
-    return { path: '/home' }
+    return { name: 'home' }
   }
 }
 const checkQuizSessionStatus = async (to: RouteLocationNormalizedGeneric) => {
@@ -56,12 +68,14 @@ const router = createRouter({
     {
       path: '/login',
       name: 'Login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: isUnAuthenticated
     },
     {
       path: '/register',
       name: 'Register',
-      component: RegisterView
+      component: RegisterView,
+      beforeEnter: isUnAuthenticated
     },
     {
       path: '/home',
