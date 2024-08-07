@@ -22,7 +22,6 @@ onMounted(() => {
         .select('id, last_attempted, is_finished')
         .eq('user_id', user.id)
       if (existingSession.data) {
-        console.log(existingSession)
         quizSession.value = existingSession.data[0]
         isFinished.value = !!existingSession.data[0].is_finished
       }
@@ -47,7 +46,6 @@ const startQuiz = async () => {
         is_started: true
       })
       .select()
-    console.log(quizData)
     push(`/quiz/${quizData.data?.[0].id}/ongoing/1`)
   } catch (error) {
     console.log(error)

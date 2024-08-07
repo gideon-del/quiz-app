@@ -11,10 +11,16 @@
         Take our quiz to learn and improve your cybersecurity knowledge.
       </p>
 
+      <a
+        href="https://www.canva.com/design/DAGESTu0EC4/Mdr8Mr3tFbfOy2VBypa8nQ/edit?utm_content=DAGESTu0EC4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+        target="_blank"
+        class="bg-black cursor-pointer rounded-lg w-full max-w-48 items-center flex justify-center h-14 font-bold text-white"
+        >Access Training</a
+      >
       <RouterLink
         to="/register"
         class="bg-black cursor-pointer rounded-lg w-full max-w-48 items-center flex justify-center h-14 font-bold text-white"
-        >Get Started Now</RouterLink
+        >Attempt Quiz</RouterLink
       >
     </section>
     <section class="py-10 px-5">
