@@ -4,9 +4,12 @@
     <section
       class="min-h-screen hero gap-5 px-3 flex flex-col items-center justify-center relative"
     >
-      <h1 class="font-bold md:text-4xl text-2xl text-center text-white">
-        Boost Your Cyber Security Awareness!
+      <h1 class="text-black text-center text-lg md:text-xl bg-white p-4 font-bold">
+        Konnect4 Dummies <span class="text-gray-400 font-medium">by Osarobo Andrew Osayagbon</span>
       </h1>
+      <h2 class="font-bold md:text-4xl text-2xl text-center text-white">
+        Boost Your Cyber Security Awareness!
+      </h2>
       <p class="md:text-xl text-lg text-white/70 font-medium text-center">
         Take our quiz to learn and improve your cybersecurity knowledge.
       </p>

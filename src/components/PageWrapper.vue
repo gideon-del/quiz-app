@@ -12,7 +12,7 @@ const logout = async () => {
     <header class="sticky px-4 top-0 left-0 right-0 border-b z-50 bg-white mb-10">
       <nav class="max-w-6xl py-4 mx-auto flex justify-between items-center">
         <RouterLink to="/" class="flex items-center gap-3">
-          <h2 class="text-base font-bold">SecureQuiz</h2>
+          <h2 class="text-base font-bold">Konnect4 Dummies</h2>
         </RouterLink>
         <button
           @click="logout"
