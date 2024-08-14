@@ -4,8 +4,11 @@ import supabaseClient from '@/utils/superbase'
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+// If we're sending a request
 const loading = ref(false)
+// supabase error message
 const errorMessage = ref('')
+// 
 const showPassword = ref(false)
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value
